@@ -6,10 +6,5 @@ use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
-    public function index($main)
-    {
-        return view('main', compact(
-            'main',
-        ));
-    }
+
 }
