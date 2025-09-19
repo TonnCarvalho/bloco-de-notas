@@ -13,10 +13,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function logout()
-    {
-        echo "logout";
-    }
+
     public function submit(Request $request)
     {
         //form validação
@@ -66,5 +63,11 @@ class AuthController extends Controller
             ]
         ]);
         echo 'OK';
+    }
+        public function logout()
+    {
+        session()->forget('user');
+
+        return redirect()->to('/login');
     }
 }
