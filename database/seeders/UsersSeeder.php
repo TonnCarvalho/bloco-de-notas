@@ -18,12 +18,12 @@ class UsersSeeder extends Seeder
                 [
                     'username' => 'user1@gmail.com',
                     'password' => bcrypt('abc123456'),
-                    'create_at' => date('Y-m-d H:i:s')
+                    'created_at' => date('Y-m-d H:i:s')
                 ],
                 [
                     'username' => 'user2@gmail.com',
                     'password' => bcrypt('abc123456'),
-                    'create_at' => date('Y-m-d H:i:s')
+                    'created_at' => date('Y-m-d H:i:s')
                 ]
 
             ]);
