@@ -16,4 +16,20 @@ class AuthController extends Controller
     {
         echo "logout";
     }
+    public function submit(Request $request)
+    {
+        //form validação
+        $request->validate(
+            //regras
+            [
+                'text_username' => 'required|string|min:3',
+                'text_password' => 'required'
+            ],
+           //error messagem personalidade
+            [
+                'required' => 'Campo requerido.',
+                'min' => 'Campo deve ter no minimo :min caracteres'
+            ]
+        );
+    }
 }
