@@ -38,19 +38,13 @@ class AuthController extends Controller
             ->where('deleted_at', NULL)
             ->first();
         //chegar se os dados existe
-        if (!$user) {
+        if (!$user OR !password_verify($password, $user->password)) {
             return redirect()
                 ->back()
                 ->withInput()
                 ->with('loginError', 'Usuário ou senha incorreto');
         }
 
-        if (!password_verify($password, $user->password)) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with('loginError', 'Usuário ou senha incorreto');
-        }
         //update last login
         $user->last_login = date('Y-m-d H:i:s');
         $user->save();
