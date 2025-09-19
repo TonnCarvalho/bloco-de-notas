@@ -20,7 +20,7 @@ Route::middleware([NotLogin::class])->group(function () {
 
     Route::controller(MainController::class)->group(function () {
         Route::get('/', 'index')
-            ->name('main');
+            ->name('home');
         Route::get('/nova-nota', 'novaNota')
             ->name('novaNota');
     });

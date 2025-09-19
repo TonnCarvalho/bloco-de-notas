@@ -37,7 +37,7 @@ class AuthController extends Controller
         $user = User::where('username', $username)
             ->where('deleted_at', NULL)
             ->first();
-            
+
         //chegar se os dados existe
         if (!$user OR !password_verify($password, $user->password)) {
             return redirect()
@@ -57,7 +57,8 @@ class AuthController extends Controller
                 'username' => $user->name
             ]
         ]);
-        echo 'OK';
+        
+        return redirect()->to('/');
     }
         public function logout()
     {
