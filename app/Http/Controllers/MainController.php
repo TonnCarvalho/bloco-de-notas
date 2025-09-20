@@ -11,10 +11,16 @@ class MainController extends Controller
     {
         $id = session('user.id');
 
-        $user = User::find($id)->toArray();
-        $notes = User::find($id)->notes()->get()->toArray();
+        $user = User::find($id)->get();
+        $notes = User::find($id)->notes()->get();
 
-        return view('home.home');
+        return view(
+            'home.home',
+            compact(
+                'user',
+                'notes'
+            )
+        );
     }
 
     public function novaNota()
