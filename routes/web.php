@@ -23,5 +23,11 @@ Route::middleware([NotLogin::class])->group(function () {
             ->name('home');
         Route::get('/nova-nota', 'novaNota')
             ->name('novaNota');
+        Route::post('/nova-nota', 'novaNotaSubmit')
+            ->name('novaNotaSubmit');
+        Route::get('/edita-nota/{id}', 'editaNota')
+            ->name('editaNota');
+        Route::get('deleta-nota/{id}', 'deletaNota')
+            ->name('deletaNota');
     });
 });
