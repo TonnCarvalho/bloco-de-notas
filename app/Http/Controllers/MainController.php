@@ -105,10 +105,20 @@ class MainController extends Controller
         $id = OperationsServices::descryptId($id);
 
         $note = Note::find($id);
-        // $note->delete(); 
-        $note->deleted_at = date('Y:m:d H:i:s');
-        $note->save();
 
+        //1. hard delete
+        // $note->delete(); 
+
+        //2. soft delete
+        // $note->deleted_at = date('Y:m:d H:i:s');
+        // $note->save();
+
+        //3. soft delete (propriedade SofetDeleteles no Model)
+        // $note->delete();
+
+        //4. hard delete (propriedade SofetDeleteles no Model)
+        $note->forceDelete();
+        
         return redirect()->route('home');
     }
 }
