@@ -6,15 +6,21 @@
                     <h4 class="text-info"> {{ $note->title }} </h4>
                     <small class="text-secondary">
                         <span class="opacity-75 me-2">
-                            Criado em: {{ $note->created_at }}
+                            @if ($note->created_at != $note->updated_at)
+                                Atualizado em: {{ $note->updated_at }}
+                            @else
+                                Criado em: {{ $note->created_at }}
+                            @endif
                         </span>
                     </small>
                 </div>
                 <div class="col text-end">
-                    <a href="{{ route('editaNota', Crypt::encrypt($note->id))}} " class="btn btn-outline-secondary btn-sm mx-1">
+                    <a href="{{ route('editaNota', Crypt::encrypt($note->id)) }} "
+                        class="btn btn-outline-secondary btn-sm mx-1">
                         <i class="fa-regular fa-pen-to-square"></i>
                     </a>
-                    <a href="{{ route('deletaNota', Crypt::encrypt($note->id)) }}" class="btn btn-outline-danger btn-sm mx-1">
+                    <a href="{{ route('deletaNota', Crypt::encrypt($note->id)) }}"
+                        class="btn btn-outline-danger btn-sm mx-1">
                         <i class="fa-regular fa-trash-can"></i>
                     </a>
                 </div>

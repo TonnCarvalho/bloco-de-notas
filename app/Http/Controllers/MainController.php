@@ -14,7 +14,10 @@ class MainController extends Controller
         $id = session('user.id');
 
         $user = User::find($id)->get();
-        $notes = User::find($id)->notes()->get();
+        $notes = User::find($id)
+            ->notes()
+            ->whereNull('deleted_at')
+            ->get();
 
         return view(
             'home.home',
@@ -55,9 +58,57 @@ class MainController extends Controller
     public function editaNota(string $id)
     {
         $id = OperationsServices::descryptId($id);
+
+        $note = Note::find($id);
+        return view('note.editaNota', compact(
+            [
+                'id',
+                'note'
+            ]
+        ));
+    }
+    public function editaNotaSubmit(Request $request)
+    {
+        $request->validate(
+            [
+                'text_title' => 'required|string|max:200',
+                'text_note' => 'required|string|max:3000'
+            ],
+            [
+                'required' => 'Campo obrigatório'
+            ]
+        );
+        if ($request->note_id == null) {
+            return redirect()->route('home');
+        }
+
+        $id = OperationsServices::descryptId($request->note_id);
+        $note = Note::find($id);
+        $note->title = $request->text_title;
+        $note->text = $request->text_note;
+        $note->save();
+
+        return redirect()->route('home');
     }
     public function deletaNota(string $id)
     {
         $id = OperationsServices::descryptId($id);
+
+        $note = Note::find($id);
+        return view('note.deletaNota', compact(
+            'note'
+        ));
+    }
+
+    public function deletaNotaConfirm(string $id)
+    {
+        $id = OperationsServices::descryptId($id);
+
+        $note = Note::find($id);
+        // $note->delete(); 
+        $note->deleted_at = date('Y:m:d H:i:s');
+        $note->save();
+
+        return redirect()->route('home');
     }
 }

@@ -21,13 +21,20 @@ Route::middleware([NotLogin::class])->group(function () {
     Route::controller(MainController::class)->group(function () {
         Route::get('/', 'index')
             ->name('home');
+
         Route::get('/nova-nota', 'novaNota')
             ->name('novaNota');
         Route::post('/nova-nota', 'novaNotaSubmit')
             ->name('novaNotaSubmit');
+
         Route::get('/edita-nota/{id}', 'editaNota')
             ->name('editaNota');
-        Route::get('deleta-nota/{id}', 'deletaNota')
+        Route::post('/edita-nota/{id}', 'editaNotaSubmit')
+            ->name('editaNotaSubmit');
+
+        Route::get('/deleta-nota/{id}', 'deletaNota')
             ->name('deletaNota');
+        Route::get('/deleta-nota-confirm/{id}', 'deletaNotaConfirm')
+            ->name('deletaNotaConfirm');
     });
 });
